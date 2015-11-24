@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     debug="true">
+
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <param name="threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c{1}:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="jdbcAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+        <param name="URL" value="jdbc:mysql://localhost:3306/log4j"/>
+        <param name="driver" value="com.mysql.jdbc.Driver"/>
+        <param name="user" value="root"/>
+        <param name="password" value="root"/>
+        <param name="sql" value="INSERT INTO LOGS(Date, Logger, Priority, Message) VALUES ('%d{ABSOLUTE}', '%c', '%p', '%m')"/>
+        <param name="threshold" value="DEBUG"/>
+    </appender>
+
+    <logger name="log4j.rootLogger" >
+        <level value="DEBUG"/>
+        <appender-ref ref="jdbcAppender"/>
+    </logger>
+
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="jdbcAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+</log4j:configuration>
+

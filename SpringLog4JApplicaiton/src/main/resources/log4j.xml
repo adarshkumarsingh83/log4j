@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <param name="threshold" value="INFO"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c{1}:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="applicationAppender" class="com.adarsh.spring.log.CustomLog4JRollingFileAppender">
+        <param name="maxFileSize" value="100MB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="fileSystem" value="true"/>
+        <param name="File" value="applicationsLog.log"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="BufferedIO" value="true"/>
+        <param name="BufferSize" value="1024"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="mainAppender" class="com.adarsh.spring.log.CustomLog4JRollingFileAppender">
+        <param name="maxFileSize" value="100MB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="fileSystem" value="true"/>
+        <param name="File" value="applications_Main.log"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="BufferedIO" value="false"/>
+        <param name="BufferSize" value="1024"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="repositoryAppender" class="com.adarsh.spring.log.CustomLog4JRollingFileAppender">
+        <param name="maxFileSize" value="100MB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="fileSystem" value="true"/>
+        <param name="File" value="applications_Repository.log"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="BufferedIO" value="false"/>
+        <param name="BufferSize" value="1024"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+
+    <appender name="beanAppender" class="com.adarsh.spring.log.CustomLog4JRollingFileAppender">
+        <param name="maxFileSize" value="100MB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="fileSystem" value="true"/>
+        <param name="File" value="applications_Bean.log"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="BufferedIO" value="false"/>
+        <param name="BufferSize" value="1024"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="org.springframework.core" additivity="false">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="org.springframework.beans" additivity="false">
+        <level value="INFO"/>
+    </logger>
+    <logger name="org.springframework.beans.factory" additivity="false">
+        <level value="INFO"/>
+    </logger>
+
+
+    <logger name="com.adarsh.spring.bean" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="beanAppender" />
+    </logger>
+
+    <logger name="com.adarsh.spring.repository" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="repositoryAppender" />
+    </logger>
+
+    <logger name="com.adarsh.spring.main" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="mainAppender" />
+    </logger>
+
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="ALL"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="applicationAppender"/>
+    </root>
+
+</log4j:configuration>

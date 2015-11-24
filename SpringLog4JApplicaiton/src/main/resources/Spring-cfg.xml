@@ -1,0 +1,21 @@
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd"> 
+
+  <beans> 
+     <bean id="person" class="com.adarsh.spring.bean.Person">
+         <property name="personId" value="101"/>
+         <property name="personName" value="Adarsh kumar singh" />
+         <property name="personEmail" value="adarsh@kumar" />
+     </bean>
+
+     <bean id="personRepository" class="com.adarsh.spring.repository.PersonRepository" >
+           <property name="person"  ref="person"/>
+     </bean>
+
+     <bean id="applicationMain" class="com.adarsh.spring.main.ApplicationMain">
+         <property name="personRepository" ref="personRepository" />
+     </bean>
+</beans> 
+
+

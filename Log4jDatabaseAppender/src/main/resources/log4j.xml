@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+    <appender name="jdbc" class="org.apache.log4j.jdbc.JDBCAppender">
+        <param name="URL" value="jdbc:mysql://localhost/log4j"/>
+        <param name="user" value="root"/>
+        <param name="password" value="root"/>
+        <param name="driver" value="com.mysql.jdbc.Driver"/>
+        <param name="sql"
+               value="INSERT INTO Log4jJdbcTable(Date, Logger, Priority, Message) VALUES ('%d{ABSOLUTE}', '%c', '%p', '%m')"/>
+
+    </appender>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <param name="threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d{dd-MMM-yy hh:mm:ss} %c{1}:%M:%L %m%n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="debug"></priority>
+        <appender-ref ref="jdbc"/>
+        <appender-ref ref="console"/>
+    </root>
+
+</log4j:configuration>
